@@ -39,4 +39,5 @@ internal protocol DataOperateable {
     static func deleteAll() throws -> Int
     
     static func findAll() throws -> [T]?
+    static func totalCount() throws -> Int
 }

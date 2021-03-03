@@ -37,6 +37,8 @@ extension ViewController {
         createTable(didSelectRowAt: indexPath)
         operateTable(didSelectRowAt: indexPath)
         dropTable(didSelectRowAt: indexPath)
+        query(didSelectRowAt: indexPath)
+        transition(didSelectRowAt: indexPath)
     }
 }
 
@@ -61,6 +63,7 @@ extension ViewController {
             return
         }
     }
+    
     
     
     /// 表操作
@@ -133,6 +136,64 @@ extension ViewController {
         }
         catch {
             log.error("删除表失败")
+        }
+    }
+    
+    ///
+    /// 基础查询
+    ///
+    private func query(didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 3 else { return }
+        
+        if indexPath.row == 0 {
+            do {
+                let rows = try TableMessage.totalCount()
+                log.debug("总计\(rows)行")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("查询失败")
+            }
+            
+            return
+        }
+        
+        if indexPath.row == 0 {
+            do {
+                let messages = try TableMessage.findAll()
+                log.debug("全部数据:")
+                print(messages)
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("查询失败")
+            }
+            return
+        }
+    }
+    
+    ///
+    /// 批量写入/更新
+    ///
+    private func transition(didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 4 else { return }
+        if indexPath.row == 0 {
+            do {
+                
+                var messages: [Message] = []
+                for mockMsgJson in mockMessages {
+                    let message = Message.init(JSON: mockMsgJson as [String : Any])!
+                    messages.append(message)
+                }
+                try TableMessage.transaction_insert_update(messages: messages, updateFlag: true)
+                log.debug("写入/更新成功")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("批量操作失败")
+            }
+            
+            return
         }
     }
 }

@@ -81,9 +81,11 @@ extension TableMessage: DataOperateable {
         }
     }
     
-    /// 插入一条消息
+    /// 插入消息
     ///
     /// - Note: 只插入, 如果存在会插入失败
+    ///
+    /// - Returns: 插入的`row id`
     ///
     static func insert(item: Message) throws -> Int64 {
         guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
@@ -103,7 +105,9 @@ extension TableMessage: DataOperateable {
     }
     
     ///
-    /// 更新一条消息
+    /// 更新消息
+    ///
+    /// - Returns: The number of updated rows.
     ///
     static func update(item: Message) throws -> Int {
         guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
@@ -117,14 +121,13 @@ extension TableMessage: DataOperateable {
         )
         
         do {
-            let rowID = try db.run(row)
-            log.debug("更新行数: \(rowID)")
-            return rowID
+            let rows = try db.run(row)
+            return rows
         } catch { throw DBError.updateError }
     }
     
     ///
-    /// 删除一条消息
+    /// 删除消息
     ///
     static func delete(item: Message) throws {
         guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
@@ -147,6 +150,14 @@ extension TableMessage: DataOperateable {
         } catch { throw DBError.dropTableError }
     }
     
+    static func totalCount() throws -> Int {
+        guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
+        do {
+            let count = try db.scalar(table.count)
+            log.debug("row总数: \(String(describing: count))")
+            return count
+        } catch { throw DBError.queryError }
+    }
     
     ///
     /// 查找全部
@@ -208,7 +219,7 @@ extension TableMessage {
                     }
                     else {
                         let insertRows = try? insert(item: message)
-                        log.debug(" 3. 插入\(insertRows ?? 0)条 - 消息Code: \(valid_code)")
+                        log.debug(" 3. 插入Row ID\(insertRows ?? 0) - 消息Code: \(valid_code)")
                     }
                 }
             }
