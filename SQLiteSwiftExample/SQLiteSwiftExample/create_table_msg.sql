@@ -1,6 +1,6 @@
 
--- 创建表 t_message --
-CREATE TABLE IF NOT EXISTS "t_message" (
+-- 创建表 t_messages --
+CREATE TABLE IF NOT EXISTS "t_messages" (
     "primary_key" INTEGER PRIMARY KEY,
     "message_code" TEXT UNIQUE,
     "message_title" TEXT,

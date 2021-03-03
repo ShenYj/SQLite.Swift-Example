@@ -56,3 +56,10 @@ let mockMessages: Array<[String: Any?]> =
         ]
     ]
 
+
+let mockOneMessage: [String: Any?] =
+[
+    "message_title" : "消息6",
+    "message_code" : "106",
+    "message_detail" :  "消息6的详情介绍",
+]

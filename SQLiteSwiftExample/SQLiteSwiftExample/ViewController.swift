@@ -25,6 +25,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import ObjectMapper
 
 class ViewController: UITableViewController { }
 
@@ -34,7 +35,8 @@ extension ViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         createTable(didSelectRowAt: indexPath)
-        
+        operateTable(didSelectRowAt: indexPath)
+        dropTable(didSelectRowAt: indexPath)
     }
 }
 
@@ -57,6 +59,80 @@ extension ViewController {
             let sql = DataBaseManager.shared.readString() ?? ""
             try? TableMessage.createTable(with: sql)
             return
+        }
+    }
+    
+    
+    /// 表操作
+    ///
+    /// - Note: 增删改查
+    ///
+    private func operateTable(didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 1 else { return }
+        
+        
+        // MARK: insert
+        if indexPath.row == 0 {
+            let inserMessage = Message.init(JSON: mockOneMessage as [String : Any])
+            
+            do {
+                let row = try TableMessage.insert(item: inserMessage!)
+                log.debug("插入\(row)行")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("插入失败")
+            }
+            return
+        }
+        
+        // MARK: update
+        if indexPath.row == 1 {
+            var updateMessage = Message.init(JSON: mockOneMessage as [String : Any])!
+            // 修改为已读
+            updateMessage.message_unread = false
+            
+            do {
+                let row = try TableMessage.update(item: updateMessage)
+                log.debug("更新\(row)行")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("更新失败")
+            }
+            return
+        }
+        
+        
+        // MARK: delete
+        if indexPath.row == 2 {
+            let deleteMessage = Message.init(JSON: mockOneMessage as [String : Any])
+            
+            do {
+                try TableMessage.delete(item: deleteMessage!)
+                log.debug("删除完成")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("删除失败")
+            }
+            return
+        }
+    }
+    
+    
+    /// 删除表
+    ///
+    /// - Note: `drop` 表
+    ///
+    private func dropTable(didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 2 else { return }
+        do {
+            try TableMessage.dropTable()
+            log.debug("删除表完成")
+        }
+        catch {
+            log.error("删除表失败")
         }
     }
 }
