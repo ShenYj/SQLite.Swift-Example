@@ -6,6 +6,11 @@ platform :ios, '13.0'
 
 def libs_pods
   pod 'SQLite.swift', '~> 0.12.2'
+  pod 'Then', '~> 2.7.0'
+  pod 'SwiftDate', '~> 6.3.1'
+  pod 'SBLibrary'
+  pod 'SwiftyJSON', '~> 5.0.0'
+  pod 'ObjectMapper', '~> 4.2.0'
 end
 
 def tools_pods

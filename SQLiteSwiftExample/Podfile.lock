@@ -2,23 +2,47 @@ PODS:
   - CocoaLumberjack/Core (3.7.0)
   - CocoaLumberjack/Swift (3.7.0):
     - CocoaLumberjack/Core
+  - ObjectMapper (4.2.0)
+  - SBLibrary (0.3.1):
+    - SBLibrary/Core (= 0.3.1)
+    - SBLibrary/UI (= 0.3.1)
+  - SBLibrary/Core (0.3.1)
+  - SBLibrary/UI (0.3.1)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
+  - SwiftDate (6.3.1)
+  - SwiftyJSON (5.0.0)
+  - Then (2.7.0)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 3.7.0)
+  - ObjectMapper (~> 4.2.0)
+  - SBLibrary
   - SQLite.swift (~> 0.12.2)
+  - SwiftDate (~> 6.3.1)
+  - SwiftyJSON (~> 5.0.0)
+  - Then (~> 2.7.0)
 
 SPEC REPOS:
   trunk:
     - CocoaLumberjack
+    - ObjectMapper
+    - SBLibrary
     - SQLite.swift
+    - SwiftDate
+    - SwiftyJSON
+    - Then
 
 SPEC CHECKSUMS:
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  SBLibrary: c3472a033c08cc214fd4fcc5f0dec5f86906a505
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: d5ff4d8853245a079677e638cb93fd22258c2975
+PODFILE CHECKSUM: c407be8b3451d4902885338cd731c888df28a412
 
 COCOAPODS: 1.10.1

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MockData.swift
 //  SQLiteSwiftExample
 //
 //  Created by ShenYj on 2021/03/03.
@@ -24,39 +24,35 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
-
-class ViewController: UITableViewController { }
-
-extension ViewController {
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        createTable(didSelectRowAt: indexPath)
-        
-    }
-}
+import Foundation
 
 
-extension ViewController {
-    
-    /// 创建表
-    ///
-    /// - Note: `row == 0`  用`SQLite.Swift`接口的方式创建表
-    /// - Note: `row == 1`  用本地`SQL`语句的方式创建表
-    ///
-    private func createTable(didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.section == 0 else { return }
-        if indexPath.row == 0 {
-            try? DataBaseManager.shared.createTables()
-            return
-        }
-        if indexPath.row == 1 {
-            let sql = DataBaseManager.shared.readString() ?? ""
-            try? TableMessage.createTable(with: sql)
-            return
-        }
-    }
-}
+let mockMessages: Array<[String: Any?]> =
+    [
+        [
+            "message_title" : "消息1",
+            "message_code" : "101",
+            "message_detail" :  "消息1的详情介绍",
+        ],
+        [
+            "message_title" : "消息2",
+            "message_code" : "102",
+            "message_detail" :  "消息2的详情介绍",
+        ],
+        [
+            "message_title" : "消息3",
+            "message_code" : "103",
+            "message_detail" :  "消息3的详情介绍",
+        ],
+        [
+            "message_title" : "消息4",
+            "message_code" : "104",
+            "message_detail" :  "消息4的详情介绍",
+        ],
+        [
+            "message_title" : "消息5",
+            "message_code" : "105",
+            "message_detail" :  "消息5的详情介绍",
+        ]
+    ]
+

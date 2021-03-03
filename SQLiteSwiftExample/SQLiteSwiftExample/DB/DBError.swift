@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DBError.swift
 //  SQLiteSwiftExample
 //
 //  Created by ShenYj on 2021/03/03.
@@ -24,39 +24,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-class ViewController: UITableViewController { }
 
-extension ViewController {
+enum DBError: Error {
+    /// 数据库连接失败
+    case connectError
+    /// 数据库操作失败
+    case insertError
+    case updateError
+    case deleteError
+    case queryError
+    /// 表操作
+    case createTableError
+    case dropTableError
+    /// 数据源有误, 关键信息校验不过, 未满足执行数据库操作的前提
+    case invalidDataError
+    /// 事务
+    case transactionError
+}
+
+extension DBError: LocalizedError {
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        createTable(didSelectRowAt: indexPath)
-        
+    var errorDescription: String? {
+        switch self {
+        case .connectError:     return "数据库连接失败"
+        case .invalidDataError: return "无效数据"
+        case .insertError:      return "插入数据失败"
+        case .updateError:      return "更新数据失败"
+        case .deleteError:      return "删除数据失败"
+        case .queryError:       return "查询数据失败"
+        case .createTableError: return "删除表失败"
+        case .dropTableError:   return "删除表失败"
+        case .transactionError: return "处理事务失败"
+        }
     }
 }
 
-
-extension ViewController {
-    
-    /// 创建表
-    ///
-    /// - Note: `row == 0`  用`SQLite.Swift`接口的方式创建表
-    /// - Note: `row == 1`  用本地`SQL`语句的方式创建表
-    ///
-    private func createTable(didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.section == 0 else { return }
-        if indexPath.row == 0 {
-            try? DataBaseManager.shared.createTables()
-            return
-        }
-        if indexPath.row == 1 {
-            let sql = DataBaseManager.shared.readString() ?? ""
-            try? TableMessage.createTable(with: sql)
-            return
-        }
-    }
-}

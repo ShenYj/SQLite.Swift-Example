@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DataOperateable.swift
 //  SQLiteSwiftExample
 //
 //  Created by ShenYj on 2021/03/03.
@@ -24,39 +24,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-class ViewController: UITableViewController { }
-
-extension ViewController {
+internal protocol DataOperateable {
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        createTable(didSelectRowAt: indexPath)
-        
-    }
-}
-
-
-extension ViewController {
+    associatedtype T
     
-    /// 创建表
-    ///
-    /// - Note: `row == 0`  用`SQLite.Swift`接口的方式创建表
-    /// - Note: `row == 1`  用本地`SQL`语句的方式创建表
-    ///
-    private func createTable(didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.section == 0 else { return }
-        if indexPath.row == 0 {
-            try? DataBaseManager.shared.createTables()
-            return
-        }
-        if indexPath.row == 1 {
-            let sql = DataBaseManager.shared.readString() ?? ""
-            try? TableMessage.createTable(with: sql)
-            return
-        }
-    }
+    static func createTable() throws -> Void
+    static func dropTable() throws -> Void
+    
+    static func insert(item: T) throws -> Int64
+    static func update(item: T) throws -> Int
+    static func delete(item: T) throws -> Void
+    static func deleteAll() throws -> Int
+    
+    static func findAll() throws -> [T]?
 }

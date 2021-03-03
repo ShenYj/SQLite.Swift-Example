@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  Message.swift
 //  SQLiteSwiftExample
 //
 //  Created by ShenYj on 2021/03/03.
@@ -24,39 +24,38 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
+import ObjectMapper
 
-class ViewController: UITableViewController { }
-
-extension ViewController {
+internal struct Message: Mappable {
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        createTable(didSelectRowAt: indexPath)
-        
+    var message_code: String?
+    var message_title: String?
+    var message_detail: String?
+    var message_unread: Bool = true
+    
+    init?(map: Map) {
+        if map.JSON["message_code"] == nil { return nil }
+    }
+    
+    mutating func mapping(map: Map) {
+        message_code                <- map["message_code"]
+        message_title               <- map["message_title"]
+        message_detail              <- map["message_detail"]
+        message_unread              <- map["message_unread"]
+    }
+
+}
+
+extension Message: Equatable {
+    
+    static func == (lhs: Message, rhs: Message) -> Bool {
+        lhs.message_code == rhs.message_code
     }
 }
 
-
-extension ViewController {
+extension Message: Hashable {
     
-    /// 创建表
-    ///
-    /// - Note: `row == 0`  用`SQLite.Swift`接口的方式创建表
-    /// - Note: `row == 1`  用本地`SQL`语句的方式创建表
-    ///
-    private func createTable(didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.section == 0 else { return }
-        if indexPath.row == 0 {
-            try? DataBaseManager.shared.createTables()
-            return
-        }
-        if indexPath.row == 1 {
-            let sql = DataBaseManager.shared.readString() ?? ""
-            try? TableMessage.createTable(with: sql)
-            return
-        }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(message_code)
     }
 }

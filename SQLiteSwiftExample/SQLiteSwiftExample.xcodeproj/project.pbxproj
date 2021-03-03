@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,14 @@
 		F770EE9425EF1E44002757CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F770EE9225EF1E44002757CA /* Main.storyboard */; };
 		F770EE9625EF1E45002757CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F770EE9525EF1E45002757CA /* Assets.xcassets */; };
 		F770EE9925EF1E45002757CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F770EE9725EF1E45002757CA /* LaunchScreen.storyboard */; };
+		F770EEA625EF2099002757CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEA525EF2099002757CA /* Logger.swift */; };
+		F770EEA925EF209E002757CA /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEA825EF209E002757CA /* MockData.swift */; };
+		F770EEB225EF21F7002757CA /* create_table_msg.sql in Resources */ = {isa = PBXBuildFile; fileRef = F770EEB125EF21F7002757CA /* create_table_msg.sql */; };
+		F770EEB925EF224F002757CA /* DataOperateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEB425EF224F002757CA /* DataOperateable.swift */; };
+		F770EEBB25EF224F002757CA /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEB625EF224F002757CA /* DataBaseManager.swift */; };
+		F770EEBC25EF224F002757CA /* TableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEB725EF224F002757CA /* TableMessage.swift */; };
+		F770EEBD25EF224F002757CA /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EEB825EF224F002757CA /* DBError.swift */; };
+		F770EED025EF2682002757CA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770EECF25EF2682002757CA /* Message.swift */; };
 		FEB49176AD62A839CE0C7FF9 /* Pods_SQLiteSwiftExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F4BB5653ACED9A52E1FB9F /* Pods_SQLiteSwiftExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +36,14 @@
 		F770EE9525EF1E45002757CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F770EE9825EF1E45002757CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F770EE9A25EF1E45002757CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F770EEA525EF2099002757CA /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		F770EEA825EF209E002757CA /* MockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		F770EEB125EF21F7002757CA /* create_table_msg.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = create_table_msg.sql; sourceTree = "<group>"; };
+		F770EEB425EF224F002757CA /* DataOperateable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataOperateable.swift; sourceTree = "<group>"; };
+		F770EEB625EF224F002757CA /* DataBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		F770EEB725EF224F002757CA /* TableMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMessage.swift; sourceTree = "<group>"; };
+		F770EEB825EF224F002757CA /* DBError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
+		F770EECF25EF2682002757CA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +64,6 @@
 				214EF5760928DA39581DF341 /* Pods-SQLiteSwiftExample.debug.xcconfig */,
 				F49EFA3C7BA907A425234386 /* Pods-SQLiteSwiftExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,6 +96,11 @@
 		F770EE8B25EF1E44002757CA /* SQLiteSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
+				F770EEB125EF21F7002757CA /* create_table_msg.sql */,
+				F770EEA825EF209E002757CA /* MockData.swift */,
+				F770EEA525EF2099002757CA /* Logger.swift */,
+				F770EECF25EF2682002757CA /* Message.swift */,
+				F770EEB025EF21E9002757CA /* DB */,
 				F770EE8C25EF1E44002757CA /* AppDelegate.swift */,
 				F770EE8E25EF1E44002757CA /* SceneDelegate.swift */,
 				F770EE9025EF1E44002757CA /* ViewController.swift */,
@@ -90,6 +110,17 @@
 				F770EE9A25EF1E45002757CA /* Info.plist */,
 			);
 			path = SQLiteSwiftExample;
+			sourceTree = "<group>";
+		};
+		F770EEB025EF21E9002757CA /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				F770EEB825EF224F002757CA /* DBError.swift */,
+				F770EEB625EF224F002757CA /* DataBaseManager.swift */,
+				F770EEB425EF224F002757CA /* DataOperateable.swift */,
+				F770EEB725EF224F002757CA /* TableMessage.swift */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +185,7 @@
 				F770EE9925EF1E45002757CA /* LaunchScreen.storyboard in Resources */,
 				F770EE9625EF1E45002757CA /* Assets.xcassets in Resources */,
 				F770EE9425EF1E44002757CA /* Main.storyboard in Resources */,
+				F770EEB225EF21F7002757CA /* create_table_msg.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +238,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F770EEBD25EF224F002757CA /* DBError.swift in Sources */,
+				F770EEBB25EF224F002757CA /* DataBaseManager.swift in Sources */,
+				F770EEB925EF224F002757CA /* DataOperateable.swift in Sources */,
 				F770EE9125EF1E44002757CA /* ViewController.swift in Sources */,
 				F770EE8D25EF1E44002757CA /* AppDelegate.swift in Sources */,
 				F770EE8F25EF1E44002757CA /* SceneDelegate.swift in Sources */,
+				F770EEA625EF2099002757CA /* Logger.swift in Sources */,
+				F770EED025EF2682002757CA /* Message.swift in Sources */,
+				F770EEBC25EF224F002757CA /* TableMessage.swift in Sources */,
+				F770EEA925EF209E002757CA /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
