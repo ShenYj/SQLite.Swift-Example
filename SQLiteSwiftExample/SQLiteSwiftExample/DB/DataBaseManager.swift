@@ -60,7 +60,13 @@ internal class DataBaseManager {
                 if tries >= 3 { return false }
                 return true
             })
-            log.debug("数据库连接成功")
+            log.debug("数据库连接成功 \(String(describing: dbConnection?.userVersion))")
+            
+            // 版本控制
+            if dbConnection?.userVersion == 0 {
+                dbConnection?.userVersion = 1
+            }
+            
         } catch _ {
             dbConnection = nil
             log.error("数据库连接失败")
@@ -91,5 +97,14 @@ extension DataBaseManager {
         guard let sqlPath = Bundle.main.path(forResource: "create_table_msg", ofType: "sql") else { return nil }
         guard let data = FileManager.default.contents(atPath: sqlPath) else { return nil }
         return String(data: data, encoding: .utf8)
+    }
+}
+
+extension Connection {
+    
+    // 版本控制
+    public var userVersion: Int32 {
+        get { return Int32(try! scalar("PRAGMA user_version") as! Int64)}
+        set { try! run("PRAGMA user_version = \(newValue)") }
     }
 }
