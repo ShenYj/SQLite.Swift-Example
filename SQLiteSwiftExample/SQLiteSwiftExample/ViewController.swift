@@ -158,9 +158,22 @@ extension ViewController {
             return
         }
         
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
             do {
                 let messages = try TableMessage.findAll()
+                log.debug("全部数据:")
+                print(messages)
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("查询失败")
+            }
+            return
+        }
+        
+        if indexPath.row == 2 {
+            do {
+                let messages = try TableMessage.findWithCodeAndTitle()
                 log.debug("全部数据:")
                 print(messages)
             }

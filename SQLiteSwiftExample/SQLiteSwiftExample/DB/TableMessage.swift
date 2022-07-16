@@ -182,6 +182,27 @@ extension TableMessage: DataOperateable {
         } catch { throw DBError.queryError }
     }
 
+    
+    static func findWithCodeAndTitle() throws -> [Message]? {
+        guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
+        do {
+            var allMessages: Array<Message> = Array()
+            let query = table.filter(message_code == "106" && message_title == "消息5")
+            let accounts = try db.prepare(query)
+            for item in accounts {
+                var map = [String: Any]()
+                map["message_code"] = item[message_code]
+                map["message_title"] = item[message_title]
+                map["message_detail"] = item[message_detail]
+                map["message_unread"] = item[message_unread]
+                if let account = Message.init(JSON: map) {
+                    allMessages.append(account)
+                }
+            }
+            log.debug("查询满足条件的全部消息: \(allMessages.count)条")
+            return allMessages
+        } catch { throw DBError.queryError }
+    }
 }
 
 
