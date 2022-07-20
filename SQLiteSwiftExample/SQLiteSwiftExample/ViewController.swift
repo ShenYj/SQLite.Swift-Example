@@ -121,6 +121,19 @@ extension ViewController {
             }
             return
         }
+        // MARK: alter add a new column
+        if indexPath.row == 3 {
+            
+            do {
+                try TableMessage.alterNewColumn()
+                log.debug("添加列完成")
+            }
+            catch {
+                debugPrint(error.localizedDescription)
+                log.error("添加列失败")
+            }
+            return
+        }
     }
     
     

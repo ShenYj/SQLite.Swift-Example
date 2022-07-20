@@ -38,6 +38,9 @@ internal struct TableMessage {
     static let message_detail           = Expression<String>("message_detail")
     static let message_unread           = Expression<Bool>("message_unread")
     
+    /// Alter
+    static let message_new_column       = Expression<String>("message_new_column")
+    
 }
 
 extension TableMessage: DataOperateable {
@@ -62,6 +65,7 @@ extension TableMessage: DataOperateable {
         }
         // db.trace { print($0) }
         
+        log.debug("当前数据库版本: \(db.userVersion)")
         // 补丁 let stmt = try db.prepare("PRAGMA table_info([t_messages])")
         // let result = try? db.run(table.addColumn(message_unread, defaultValue: true))
         // log.verbose("表新增列: \(String(describing: result))")
@@ -273,4 +277,29 @@ extension TableMessage {
         }
     }
 
+}
+
+extension TableMessage {
+    
+    static func alterNewColumn() throws {
+        // 补丁 let stmt = try db.prepare("PRAGMA table_info([t_messages])")
+        guard let db = DataBaseManager.shared.dbConnection else { throw DBError.connectError }
+        
+        guard db.userVersion < 1 else {
+            log.debug("当前数据库版本: \(db.userVersion)")
+            return
+        }
+        
+        log.debug("当前数据库版本: \(db.userVersion)")
+        do {
+            
+            let result = try db.run(table.addColumn(message_new_column, defaultValue: ""))
+            log.verbose("消息表新增列: \(String(describing: result))")
+            db.userVersion = 1
+            log.warning("添加列成功")
+        }
+        catch {
+            log.warning("添加列失败")
+        }
+    }
 }
